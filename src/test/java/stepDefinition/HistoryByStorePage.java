@@ -80,8 +80,7 @@ public class HistoryByStorePage extends HistoryByStoreObjects {
             double sum = 0;
             for (int row = 1; row <= 10; row++) {
                 WebElement cell = table.findElement(By.xpath("./tbody/tr[" + row + "]/td[" + col + "]"));
-                String cellText = cell.getText().replaceAll("[^\\d.]", "");
-                double cellValue = Double.parseDouble(cellText);
+                double cellValue = Double.parseDouble(cell.getText().replaceAll("[^\\d.]", ""));
                 sum += cellValue;
             }
 
