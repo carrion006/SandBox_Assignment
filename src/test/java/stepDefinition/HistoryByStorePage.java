@@ -74,26 +74,29 @@ public class HistoryByStorePage extends HistoryByStoreObjects {
 
         test.log(Status.INFO,"Begin Data Validation");
         WebElement table = PageLoadWait.waitForElementToBeClickable(driver, By.xpath(ReversalTable));
-        Thread.sleep(16000);
-
-        WebElement grandTotalCell = table.findElement(By.xpath("./tbody/tr[12]/td[last()]"));
-        double grandTotal = Double.parseDouble(grandTotalCell.getText());
-
+        Thread.sleep(18000);
 
         for (int col = 2; col <= 8; col++) {
             double sum = 0;
             for (int row = 1; row <= 10; row++) {
                 WebElement cell = table.findElement(By.xpath("./tbody/tr[" + row + "]/td[" + col + "]"));
-                String cellText = cell.getText();
+                String cellText = cell.getText().replaceAll("[^\\d.]", "");
                 double cellValue = Double.parseDouble(cellText);
                 sum += cellValue;
             }
 
+            WebElement grandTotalCell = table.findElement(By.xpath("./tbody/tr[12]/td[" + col + "]"));
+            double grandTotal = Double.parseDouble(grandTotalCell.getText().replaceAll("[^\\d.]", ""));
+
             if (Math.abs(sum - grandTotal) < 0.001) {
                 System.out.println("Sum validation passed for column " + col);
+                test.log(Status.PASS,"Sum is Matched for the column " + col);
 
             } else {
-                System.out.println("Sum validation failed for column " + col);
+                System.out.println("Sum validation failed for column " + col +
+                        " Actual_Sum:" + sum + " Expected_Sum:"+ grandTotal);
+                test.log(Status.FAIL,"Sum validation failed for column " + col +
+                        " Actual_Sum:" + sum + " Expected_Sum:"+ grandTotal);
             }
         }
 
