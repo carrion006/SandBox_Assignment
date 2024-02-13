@@ -89,12 +89,9 @@ public class HistoryByStorePage extends HistoryByStoreObjects {
             double grandTotal = Double.parseDouble(grandTotalCell.getText().replaceAll("[^\\d.]", ""));
 
             if (Math.abs(sum - grandTotal) < 0.001) {
-                System.out.println("Sum validation passed for column " + col);
                 test.log(Status.PASS,"Sum is Matched for the column " + col);
 
             } else {
-                System.out.println("Sum validation failed for column " + col +
-                        " Actual_Sum:" + sum + " Expected_Sum:"+ grandTotal);
                 test.log(Status.FAIL,"Sum validation failed for column " + col +
                         " Actual_Sum:" + sum + " Expected_Sum:"+ grandTotal);
             }
