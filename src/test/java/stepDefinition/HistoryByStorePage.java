@@ -45,10 +45,11 @@ public class HistoryByStorePage extends HistoryByStoreObjects {
 
         WebElement Password = driver.findElement(By.xpath(password));
         Password.sendKeys(PropertyReader.getProperties("Password"));
-        test.log(Status.INFO,"Logged In to the Application");
 
         WebElement loginButton = driver.findElement(By.xpath(loginBtn));
         loginButton.click();
+
+        test.log(Status.INFO,"Logged In to the Application");
 
             PageLoadWait.waitForPageToLoad(driver);
 
